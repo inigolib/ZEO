@@ -1,0 +1,27 @@
+<div class="container mt-5">
+    <h2>Alta de Usuario</h2>
+    <form (ngSubmit)="onSubmit()" #altaUsuarioForm="ngForm">
+  
+      <div class="mb-3">
+        <label for="nombre" class="form-label">Nombre</label>
+        <input type="text" id="nombre" name="nombre" class="form-control" [(ngModel)]="usuario.nombre" required>
+      </div>
+  
+      <div class="mb-3">
+        <label for="edad" class="form-label">Edad</label>
+        <input type="number" id="edad" name="edad" class="form-control" [(ngModel)]="usuario.edad" required>
+      </div>
+  
+      <div class="mb-3">
+        <label for="email" class="form-label">Email</label>
+        <input type="email" id="email" name="email" class="form-control" [(ngModel)]="usuario.email" required>
+      </div>
+  
+      <div class="mb-3">
+        <label for="contrasena" class="form-label">Contraseña</label>
+        <input type="password" id="contrasena" name="contrasena" class="form-control" [(ngModel)]="usuario.contrasena" required>
+      </div>
+  
+      <button type="submit" class="btn btn-primary" [disabled]="!altaUsuarioForm.form.valid">Registrar</button>
+    </form>
+  </div>
