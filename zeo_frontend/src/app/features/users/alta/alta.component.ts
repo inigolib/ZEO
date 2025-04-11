@@ -27,16 +27,20 @@ export class AltaComponent {
       this.errorMessage = 'Por favor, completa todos los campos.';
     } else {
       this.apiService.createUser(this.usuario).subscribe({
-        next: (response) => {
-          console.log('Usuario registrado:', response);
-          this.successMessage = 'Usuario registrado con éxito!';
+        next: (response: string) => {
+          console.log('Respuesta del backend:', response);
+      
+          if (response === 'Usuario registrado') {
+            this.successMessage = 'Usuario registrado con éxito!';
+          } else {
+            this.errorMessage = 'Hubo un error al registrar el usuario.';
+          }
         },
-        error: (err) => {
-          console.error('Error al registrar usuario:', err);
-          this.errorMessage = 'Hubo un error al registrar el usuario.';
+        error: (error) => {
+          console.error('Error', error);
+          this.errorMessage = 'Error al conectarse con el servidor.';
         }
       });
     }
   }
 }
-

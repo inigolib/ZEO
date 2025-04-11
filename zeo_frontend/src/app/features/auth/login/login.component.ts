@@ -14,7 +14,7 @@ import { Router } from '@angular/router';
 export class LoginComponent {
   credentials = {
     email: '',
-    password: ''
+    contrasena: ''
   };
 
   errorMessage = '';
@@ -22,7 +22,7 @@ export class LoginComponent {
   constructor(private apiService: ApiService, private router: Router) {}
 
   onLogin() {
-    if (!this.credentials.email || !this.credentials.password) {
+    if (!this.credentials.email || !this.credentials.contrasena) {
       this.errorMessage = 'Por favor, completa todos los campos.';
     } else if (!this.credentials.email.includes('@')) {
       this.errorMessage = 'El email no tiene un formato válido.';
@@ -31,17 +31,21 @@ export class LoginComponent {
       console.log('Credenciales ingresadas:', this.credentials);
 
       // Llamar al método de login del ApiService
-      this.apiService.login(this.credentials).subscribe(
-        (response) => {
-          console.log('Login exitoso', response);
-          // Redirigir al listado de usuarios o donde necesites
-          this.router.navigate(['/users']); // O la ruta que corresponda
+      this.apiService.login(this.credentials).subscribe({
+        next: (response: string) => {
+          console.log('Respuesta del backend:', response);
+      
+          if (response === 'Login correcto') {
+            this.router.navigate(['/listado']);
+          } else {
+            this.errorMessage = 'Credenciales incorrectas.';
+          }
         },
-        (error) => {
+        error: (error) => {
           console.error('Error al hacer login', error);
-          this.errorMessage = 'Credenciales incorrectas o error al iniciar sesión.';
+          this.errorMessage = 'Error al conectarse con el servidor.';
         }
-      );
+      });
     }
   }
 }

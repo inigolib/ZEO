@@ -11,6 +11,8 @@ public class UsuarioService {
 
     public void registrar(Usuario usuario) {
         usuarios.add(usuario);
+        usuarios.forEach(System.out::println);
+
     }
 
     public boolean autenticar(String email, String contrasena) {

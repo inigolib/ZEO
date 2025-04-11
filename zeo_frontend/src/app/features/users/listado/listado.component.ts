@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { ApiService } from '/Users/inigoliberal/zeo/zeo_frontend/src/app/services/api.service';
 import { NgIf } from '@angular/common';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-listado',
-  imports: [NgIf],
+  imports: [NgIf, CommonModule],
   templateUrl: './listado.component.html',
   styleUrls: ['./listado.component.css'],
 })

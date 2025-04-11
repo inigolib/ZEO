@@ -22,12 +22,18 @@ public class UsuarioController {
 
     @PostMapping("/login")
     public String login(@RequestBody Usuario usuario) {
+        System.out.println("Email recibido: " + usuario.getEmail());
+        System.out.println("Contraseña recibida: " + usuario.getContrasena());
         boolean ok = usuarioService.autenticar(usuario.getEmail(), usuario.getContrasena());
+        System.out.println(ok);
+
         return ok ? "Login correcto" : "Login incorrecto";
     }
 
     @GetMapping("/listado")
     public List<Usuario> listado() {
-        return usuarioService.obtenerTodos();
+        List<Usuario> usuarios = usuarioService.obtenerTodos();
+        usuarios.forEach(System.out::println);
+        return usuarios;
     }
 }
