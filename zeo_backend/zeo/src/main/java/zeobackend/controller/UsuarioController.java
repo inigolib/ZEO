@@ -16,23 +16,22 @@ public class UsuarioController {
 
     @PostMapping("/alta")
     public String alta(@RequestBody Usuario usuario) {
-        System.out.println(usuario);
-        System.out.println("ES O NO ES");
-        System.out.println(usuario.getPersistente());
-
-        usuarioService.registrar(usuario, usuario.getPersistente());
-        return "Usuario registrado";
-    }
+    usuarioService.registrar(usuario, Boolean.TRUE.equals(usuario.getPersistente()));
+    return "Usuario registrado";
+}
 
     @PostMapping("/login")
-    public String login(@RequestBody Usuario usuario, @RequestParam(defaultValue = "false") boolean persistente) {
-        boolean ok = usuarioService.autenticar(usuario.getEmail(), usuario.getContrasena(), persistente);
+    public String login(@RequestBody Usuario usuario) {
+        boolean ok = usuarioService.autenticar(
+            usuario.getEmail(),
+            usuario.getContrasena());
         return ok ? "Login correcto" : "Login incorrecto";
     }
+    
 
     @GetMapping("/listado")
-    public List<Usuario> listado(@RequestParam(defaultValue = "false") boolean persistente) {
-        List<Usuario> usuarios = usuarioService.obtenerTodos(persistente);
+    public List<Usuario> listado() {
+        List<Usuario> usuarios = usuarioService.obtenerTodos();
         usuarios.forEach(System.out::println);
         return usuarios;
     }

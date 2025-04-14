@@ -30,36 +30,39 @@ public class UsuarioService {
         }
     }
 
-    public boolean autenticar(String email, String contrasena, boolean persistente) {
-        logger.info("Intentando autenticar usuario: {}, modo persistente: {}", email, persistente);
+    public boolean autenticar(String email, String contrasena) {
+        logger.info("Intentando autenticar usuario: {} {}, modo persistente: {}", email, contrasena);
         
         boolean resultado;
-        if (persistente) {
-            logger.debug("Buscando en base de datos H2");
-            resultado = usuarioRepository.existsByEmailAndContrasena(email, contrasena);
-        } else {
-            logger.debug("Buscando en memoria");
-            resultado = usuarios.stream()
+        
+        logger.debug("Buscando en base de datos H2");
+        resultado = usuarioRepository.existsByEmailAndContrasena(email, contrasena);
+        if (resultado) {
+            return resultado;
+        } 
+        logger.debug("Buscando en memoria");
+        resultado = usuarios.stream()
                     .anyMatch(u -> u.getEmail().equals(email) && u.getContrasena().equals(contrasena));
-        }
         
         logger.info("Resultado autenticación: {}", resultado);
         return resultado;
     }
 
-    public List<Usuario> obtenerTodos(boolean persistente) {
-        logger.info("Obteniendo todos los usuarios, modo persistente: {}", persistente);
-        
-        List<Usuario> resultado;
-        if (persistente) {
-            logger.debug("Obteniendo de base de datos H2");
-            resultado = usuarioRepository.findAll();
-            logger.debug("Usuarios encontrados en BD: {}", resultado.size());
-        } else {
-            logger.debug("Obteniendo de memoria");
-            resultado = usuarios;
-        }
-        
+    public List<Usuario> obtenerTodos() {
+        logger.info("Obteniendo todos los usuarios, combinando BD y memoria");
+    
+        List<Usuario> resultado = new ArrayList<>();
+    
+        // Obtener de la base de datos
+        List<Usuario> persistentes = usuarioRepository.findAll();
+        logger.debug("Usuarios encontrados en BD: {}", persistentes.size());
+        resultado.addAll(persistentes);
+    
+        // Agregar los usuarios en memoria
+        logger.debug("Usuarios encontrados en memoria: {}", usuarios.size());
+        resultado.addAll(usuarios);
+    
         return resultado;
     }
-}
+    
+    }

@@ -12,7 +12,7 @@ import { ApiService } from '/Users/inigoliberal/zeo/zeo_frontend/src/app/service
 export class AltaComponent {
   usuario = {
     nombre: '',
-    edad: 0,  // Inicializa con un valor numérico, no null
+    edad: 0,
     email: '',
     contrasena: '',
     persistente: false,
