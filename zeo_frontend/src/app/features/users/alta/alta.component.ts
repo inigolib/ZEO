@@ -14,7 +14,8 @@ export class AltaComponent {
     nombre: '',
     edad: 0,  // Inicializa con un valor numérico, no null
     email: '',
-    contrasena: ''
+    contrasena: '',
+    persistente: false,
   };
 
   errorMessage = '';
