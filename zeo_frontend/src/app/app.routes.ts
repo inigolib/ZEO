@@ -5,6 +5,7 @@ import { ListadoComponent } from './features/users/listado/listado.component';
 
 // Aquí definimos las rutas para nuestra aplicación standalone
 export const routes: Routes = [
+  { path: '', redirectTo: 'login', pathMatch: 'full' },
   { path: 'login', component: LoginComponent },
   { path: 'alta', component: AltaComponent },
   { path: 'listado', component: ListadoComponent },
