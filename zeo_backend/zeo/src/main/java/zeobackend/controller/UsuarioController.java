@@ -16,7 +16,7 @@ public class UsuarioController {
 
     @PostMapping("/alta")
     public String alta(@RequestBody Usuario usuario) {
-    usuarioService.registrar(usuario, Boolean.TRUE.equals(usuario.getPersistente()));
+    usuarioService.registrar(usuario);
     return "Usuario registrado";
 }
 
@@ -31,8 +31,6 @@ public class UsuarioController {
 
     @GetMapping("/listado")
     public List<Usuario> listado() {
-        List<Usuario> usuarios = usuarioService.obtenerTodos();
-        usuarios.forEach(System.out::println);
-        return usuarios;
+        return usuarioService.obtenerTodos();
     }
 }

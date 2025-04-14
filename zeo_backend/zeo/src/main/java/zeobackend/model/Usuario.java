@@ -16,5 +16,4 @@ public class Usuario {
     private int edad;
     private String email;
     private String contrasena;
-    private Boolean persistente;
 }
