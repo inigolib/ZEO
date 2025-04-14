@@ -9,7 +9,7 @@ import { Router } from '@angular/router';
   selector: 'app-login',
   imports: [CommonModule, FormsModule],
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css'] // Aquí debería ser styleUrls, no styleUrl
+  styleUrls: ['./login.component.css'],
 })
 export class LoginComponent {
   credentials = {
@@ -27,10 +27,9 @@ export class LoginComponent {
     } else if (!this.credentials.email.includes('@')) {
       this.errorMessage = 'El email no tiene un formato válido.';
     } else {
-      this.errorMessage = ''; // Limpiar mensaje de error si todo es válido
+      this.errorMessage = '';
       console.log('Credenciales ingresadas:', this.credentials);
 
-      // Llamar al método de login del ApiService
       this.apiService.login(this.credentials).subscribe({
         next: (response: string) => {
           console.log('Respuesta del backend:', response);
